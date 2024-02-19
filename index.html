@@ -1,0 +1,94 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+
+ <!DOCTYPE html>
+
+ <html>
+  <head>
+    <style>
+        body{
+            background-color: lightslategray;
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        form{
+            width: 15%;
+            height: 80%;
+            font-family: 'Oswald';
+            background-color: white;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .submit{
+            background-color: green;
+        }
+        
+        .reset{
+            background-color: red;
+        }
+
+        button{
+            color: white
+        }
+
+        input{
+            margin: 5px;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        button {
+            border: none;
+            margin-top: 10px;
+            padding: 5px 25px;
+            border-radius: 2.5px;
+        }
+    </style>
+
+  </head>
+  <body>
+        <form>
+            <h1>Registration Form</h1>
+            First name: <br> <input type= "text" name= "firstname" size="32"/>
+            <br />
+
+            Last Name:  <br> <input type= "text" name= "lastname" size="32"/>
+            <br />
+            
+            Nickname:  <br> <input type= "text" name= "nickname" size="32"/>
+            <br />
+            
+            Email:  <br> <input type= "text" name= "email" size="32"/>
+            <br />
+            
+            Password: <br>  <input type= "password" name= "password" size="32"/>
+            <br />
+            
+            Date of Birth: <br>  <input type= "date" name= "birthdate" />
+            <br />
+            
+            Gender: <br> 
+            Male <input type= "radio" name= "Male" />
+            Female <input type= "radio" name= "Female" />
+            Other <input type= "radio" name= "Other" />
+            <br />
+            
+            Mobile: <br> <input type= "tel" name= "mobile" size="32"/>
+            <br/>
+            
+            Address: 
+            <br> 
+            <textarea name= "address" cols= "34" rows= "10" > </textarea>
+            <br/>
+            
+            <button class = "submit">Submit</button>
+            <button class = "reset">Reset</button>
+        </form>
+  </body>
+ </html>
