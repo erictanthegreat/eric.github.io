@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sum</title>
+    <script language="javascript" type="text/javascript">
+        function Calculate() {
+            var first = parseInt(document.getElementById("first").value);
+            
+            var second = parseInt(document.getElementById("second").value);
+            
+            var total = first + second;
+            
+            document.getElementById("sum").innerHTML = total;
+        }
+    </script>
+</head>
+
+<style>
+    body {
+        background-color: pink;
+        justify-content: center;
+        display: flex;
+        margin: 20px;
+    }
+
+    .container {
+        text-align: center;
+        font-size: 25px;
+        background-color: white;
+        border: 2.5px solid black;
+        padding: 100px;
+        border-radius: 35px;
+    }
+
+    input {
+        width: 50%;
+        height: 10%;
+        font-size:25px;
+    }
+
+    hr {
+        background-color:black;
+        height:2px;
+        border-width:0;
+
+    }
+
+    .box {
+        width: auto;
+        height: auto;
+        border: 1px solid white;
+        padding: 1px;
+        margin: 10px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Input Two Numbers to Find Their Sum</h1>
+
+        <hr>
+        <br />
+
+        Enter 1st number: <br /> <input type="number" id="first" min="1" max="1000" />
+
+        <br />
+        <br />
+
+        Enter 2nd number: <br /> <input type="number" id="second" min="1" max="1000" />
+
+        <br />
+        <br />
+
+        Total sum:
+        <div class="box">
+            <p id="sum"></p>
+        </div>
+
+
+        <input type="button" onclick="Calculate()" value="Calculate Sum!">
+    </div>
+</body>
+</html>
