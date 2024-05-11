@@ -1,0 +1,235 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Calendar</title>
+
+  <style>
+    body {
+      background-color: aquamarine;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 350px;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: white;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .calendar-header {
+      width: calc(70% - 20px);
+      text-align: center;
+      margin: 0 auto;
+      margin-bottom: 10px;
+      background-color: #2250C2;
+      border-radius: 25px;
+      padding: 10px;
+      color: white;
+      position: relative;
+    }
+
+    .arrow-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #prevMonthBtn {
+      left: 10px;
+    }
+
+    #nextMonthBtn {
+      right: 10px;
+    }
+
+    .calendar-header span {
+      margin: 0 10px;
+    }
+
+    .days-container {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      text-align: center;
+      justify-content: center;
+      background-color: #2250C2;
+      border-radius: 25px;
+      padding: 5px;
+    }
+
+    .day {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: default;
+      font-weight: bold;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .calendar-day {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      border: 1px solid black;
+      border-width: 2.5px;
+    }
+
+    .today {
+      background-color: #2250C2;
+      color: white;
+    }
+
+    .selected {
+      background-color: #007bff;
+    }
+
+    .calendar-day:hover {
+      background-color: #f0f0f0;
+    }
+
+    .empty {
+      color: #bbb;
+      border: 1px solid #ccc;
+      border-width: 2.5px;
+    }
+
+    .bottom-section {
+      margin-top: 10px;
+      text-align: center;
+      display: flex;
+      justify-content: space-around;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="calendar-header">
+      <span id="prevMonthBtn" class="arrow-btn" style="cursor: pointer;">&#9664;</span>
+      <span id="currentMonth"></span>
+      <span id="nextMonthBtn" class="arrow-btn" style="cursor: pointer;">&#9654;</span>
+    </div>
+
+    <div class="days-container">
+      <div class="day">Sun</div>
+      <div class="day">Mon</div>
+      <div class="day">Tue</div>
+      <div class="day">Wed</div>
+      <div class="day">Thu</div>
+      <div class="day">Fri</div>
+      <div class="day">Sat</div>
+    </div>
+
+    <div class="calendar-grid" id="calendarGrid"></div>
+
+
+    <div class="bottom-section">
+      <p>Events</p>
+      <p>Holidays</p>
+      <p>Exams</p>
+    </div>
+
+    <script>
+      const calendarGrid = document.getElementById('calendarGrid');
+      const currentMonthDisplay = document.getElementById('currentMonth');
+      const prevMonthBtn = document.getElementById('prevMonthBtn');
+      const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+      let currentDate = new Date();
+      let currentMonth = currentDate.getMonth();
+      let currentYear = currentDate.getFullYear();
+
+      function renderCalendar() {
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+        calendarGrid.innerHTML = '';
+
+        // Display previous month days
+        for (let i = 0; i < firstDayOfMonth; i++) {
+          const dayElement = document.createElement('div');
+          dayElement.classList.add('calendar-day', 'empty');
+          dayElement.textContent = new Date(currentYear, currentMonth, -firstDayOfMonth + i + 1).getDate();
+          calendarGrid.appendChild(dayElement);
+        }
+
+        // Display current month days
+        for (let i = 1; i <= daysInMonth; i++) {
+          const dayElement = document.createElement('div');
+          dayElement.classList.add('calendar-day');
+          dayElement.textContent = i;
+          if (currentMonth === currentDate.getMonth() && currentYear === currentDate.getFullYear() && i === currentDate.getDate()) {
+            dayElement.classList.add('today');
+          }
+          calendarGrid.appendChild(dayElement);
+        }
+
+        // Display next month days
+        const totalDaysDisplayed = firstDayOfMonth + daysInMonth;
+        const remainingDays = 42 - totalDaysDisplayed;
+        for (let i = 1; i <= remainingDays; i++) {
+          const dayElement = document.createElement('div');
+          dayElement.classList.add('calendar-day', 'empty');
+          dayElement.textContent = i;
+          calendarGrid.appendChild(dayElement);
+        }
+
+        currentMonthDisplay.textContent = new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
+      }
+
+      renderCalendar();
+
+      prevMonthBtn.addEventListener('click', () => {
+        if (currentMonth === 0) {
+          currentYear--;
+          currentMonth = 11;
+        } else {
+          currentMonth--;
+        }
+        renderCalendar();
+      });
+
+      nextMonthBtn.addEventListener('click', () => {
+        if (currentMonth === 11) {
+          currentYear++;
+          currentMonth = 0;
+        } else {
+          currentMonth++;
+        }
+        renderCalendar();
+      });
+
+      calendarGrid.addEventListener('click', (event) => {
+        const selectedDay = event.target.textContent;
+        if (selectedDay !== "") {
+          alert(`You clicked on ${selectedDay}/${currentMonth + 1}/${currentYear}`);
+        }
+      });
+    </script>
+  </div>
+</body>
+</html>
